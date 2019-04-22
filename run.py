@@ -1,11 +1,11 @@
 #! coding utf-8
-import pyrebase
+# import pyrebase
 import argparse
 import cv2
 import time
 import numpy as np
 from head import HeadCounter
-# from button import Button
+from button import Button
 import  threading
 import time
 
@@ -18,7 +18,7 @@ storageBucket = "gs://dw-1d-group.appspot.com/"
 config = {"apiKey": apiKey, "databaseURL": url,"authDomain":authDomain,"storageBucket":storageBucket}
 firebase = pyrebase.initialize_app(config)
 db = firebase.database()
-# bottons = Button()
+bottons = Button()
 
 # def press_button():
 #     while True:
@@ -26,7 +26,7 @@ db = firebase.database()
 
 def press_button_test():
     while True:
-        print("test {0}".format(time.time()))
+        pass
 
 def upload(people):
     db.child("people").set(people)
@@ -53,17 +53,6 @@ def count_people():
         else:
             cap.open(0)
 
-def send():
-    cap = cv2.VideoCapture(0)
-    while True:
-        if cap.isOpened():
-            ret,frame = cap.read()
-            t= time.asctime(time.localtime(time.time()))
-            upload_picture(np.array(frame),t)
-            print("[INFO] Uploaded picture to firebase,{0}".format(t))
-            time.sleep(10)
-        else:
-            cap.open(0)
 
 def main():
     ap = argparse.ArgumentParser()
@@ -73,15 +62,16 @@ def main():
 
     if args["camera"] is not None and args["local"] is None:
         print("[INFO] using camera")
-        threads = []
-        t1 = threading.Thread(target=count_people)
-        t2 = threading.Thread(target=press_button_test)
-        threads.append(t1)
-        threads.append(t2)
-        for i in threads:
-            i.start()
-        for i in threads:
-            i.join()
+        # threads = []
+        # t1 = threading.Thread(target=count_people)
+        # t2 = threading.Thread(target=press_button_test)
+        # threads.append(t1)
+        # threads.append(t2)
+        # for i in threads:
+        #     i.start()
+        # for i in threads:
+        #     i.join()
+        count_people()
     elif args["camera"] is None and args["local"] is not None:
         print("[INFO] using local image")
         test(args["local"])
