@@ -16,8 +16,3 @@ for train.pickle can be download from
 for test.pickle can be download from 
 
 <http://lsjsg.com/downloads/test.pickle>
-
-
-
-
-
