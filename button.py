@@ -113,3 +113,7 @@ class Button():
             print("12 pressed")
         elif GPIO.input(self.switch12) == False:
             self.db.child("12").set("0")
+if __name__ == "__main__":
+    button = Button()
+    while True:
+        button.pressed()
