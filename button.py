@@ -3,13 +3,11 @@ import RPi.GPIO as GPIO
 
 
 class Button():
-    def __init__(self, url="https://dw-1d-group.firebaseio.com/", apiKey="AIzaSyDOtjcPwSgjyzH37QWdsZwH6tL6WgYwOlQ",
-                 authDomain="https://dw-1d-group.firebaseapp.com", storageBucket="gs://dw-1d-group.appspot.com/"):
+    def __init__(self, url = "https://dw-1d-kivy.firebaseio.com",apikey = "AIzaSyADs22Rdhef_5w28Y4oOvx0Aat1NiKCl5U"):
         # Create a firebase object by specifying the URL of the database and its secret token.
         # The firebase object has functions put and get, that allows user to put data onto
         # the database and also retrieve data from the database.
-        self.config = config = {"apiKey": apiKey, "databaseURL": url, "authDomain": authDomain,
-                                "storageBucket": storageBucket}
+        self.config = config = {"apiKey": apikey, "databaseURL": url}
         firebase = pyrebase.initialize_app(config)
         self.db = firebase.database()
         for i in range(1, 13):
@@ -42,6 +40,7 @@ class Button():
         GPIO.setup(self.switch12, GPIO.IN, GPIO.PUD_DOWN)  # Floor 12
 
     def pressed(self):
+        # the buttons are coresponding to the levels
         if GPIO.input(self.switch1) == True:
             self.db.child("1").set("1")
             print("1f pressed")

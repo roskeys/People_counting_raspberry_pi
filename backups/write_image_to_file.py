@@ -4,7 +4,7 @@ import pickle
 import cv2
 import random
 
-
+# get the names
 def get_name(line):
     last = False
     ret = ''
@@ -37,7 +37,7 @@ class Readxml:
                 picture = self.read_file(file)
                 data.append(picture)
         return data
-
+    # read the information inside the xml file
     def read_file(self, filename):
         filepath = self.dir + filename
         file = open(filepath, "r")
@@ -71,7 +71,7 @@ class Readxml:
                 ob = []
         picture["objects"] = objects
         return picture
-
+    # write the data to csv
     def write_to_csv(self, write2):
         data = self.get_data()
         csv = {"filename": [], "size": [], "objects": []}
@@ -85,7 +85,7 @@ class Readxml:
 if __name__ == "__main__":
     read = Readxml("./data/marks/")
     data = read.write_to_csv("./data/data.pickle")
-
+    # free image is the group of images that do not contains head at all
     def free_image(size, positions):
         ret = []
         x = list(map(lambda x: x*64,list(range(int(int(size[0])/64)))))
@@ -106,7 +106,7 @@ if __name__ == "__main__":
                     if l not in ret:
                         ret.append(l)
         return ret
-
+    # get the pictures containing heads and the pictures do not contain any head
     def pre_process(num,impath,data):
         sizes = data["size"]
         positions = data["objects"]
@@ -149,6 +149,7 @@ if __name__ == "__main__":
     data["free_image"] = free
     data["positive"] = label_1
     data["negative"] = label_2
+    # store the data
     with open("./data/data.pickle", "wb") as file:
         pickle.dump(data, file)
         file.close()

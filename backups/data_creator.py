@@ -4,7 +4,7 @@ import pickle
 from random import randint,random
 time_moving = 2
 time_stop = 10
-
+# generate data pares current level and my level(going up)
 def generate_up(current_level,my_level):
     number = randint(current_level,my_level)
     l = []
@@ -17,7 +17,7 @@ def generate_up(current_level,my_level):
             else:
                 l.append(a)
     return l
-
+# generate level (going down)
 def generate_down(current_level,my_level):
     number = randint(my_level,current_level)
     l = []
@@ -30,7 +30,7 @@ def generate_down(current_level,my_level):
             else:
                 l.append(a)
     return l
-
+# define the time need 
 def time(l):
     start, end, levels = l
     stops = len(levels)
@@ -40,6 +40,7 @@ def time(l):
     return ret
 
 data = []
+# generate a group of data that need to use
 for i in range(100):
     current_level,my_level = randint(1,12),randint(1,12)
     while current_level == my_level:
